@@ -58,7 +58,15 @@ let controller = {
             alert("неправильно")
         }else{
             firstChar = guess.charAt(0);
-            let row = alphabet.indexOf(firstChar)
+            let row = alphabet.indexOf(firstChar);
+            let column = guess.charAt(1);
+            if(isNaN(row) || isNaN(column)){
+                alert('нет такого значения')
+            }else if(row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize){
+                alert('нета')
+            }
+
+            
         }
     }
 
