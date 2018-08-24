@@ -19,15 +19,49 @@ let model = {
     numShips: 3,
     shipLength: 3,
     shipsSunk: 0,
-    ships = [{location:['10', '20', '30'], hits : ['hit','',''] },
+    ships : [{location:['10', '20', '30'], hits : ['','',''] },
             {location:['32','33','34'], hits:['', '','' ]},
             {location:['42','43','44'], hits:['', '',''] }],
     fire: function(guess){
         for(var i;i < this.numShips;i++){
             var ship = this.ships[i];
+            ship.location.indexOf(guess)
+                if(index >= 0){
+                    ship.hits[index] = "hit";
+                    view.displayHit(guess);
+                    view.displayMessage('HIT!');
+                    if(this.isSunk(ship)){
+                        view.displayMessage('YOU SANK my battleship');
+                        this.shipsSunk++;
+                    }
+                    return true;
+                }
         }
-    }        
+        view.displayMiss(guess);
+        view.displayMiss('you missed')
+        return false;
+    },
+    isSunk: function(ship){
+        for(var i = 0;i < this.shipLength; i++){
+            if(ship.hits[i] !== 'hit'){
+                return false;
+            }
+        }
+        return true;
+    }       
+};
+let controller = {
+    guesses : 0,
+    processGuess : function (guess){
+        let alphabet = ['A', 'B','C','D','E','F','G'];
+        if (guess === null || guess.lenght !== 2){
+            alert("неправильно")
+        }else{
+            firstChar = guess.charAt(0);
+            let row = alphabet.indexOf(firstChar)
+        }
+    }
+
 }
-// view.displayHit('00');
-// view.displayMiss('26');
-// view.displayMessage('программа работает');
+
+
