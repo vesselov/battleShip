@@ -53,9 +53,18 @@ let model = {
 let controller = {
     guesses : 0,
     processGuess : function (guess){
+        var location = parseGuess(guess)
+        if (location){
+            this.guesses++;
+            var hit = model.fire(location);
+            if(hit && model.shipsSunk === module.numShips){
+                view.displayMessage('Ты потапил все корабли' + this.guesses  + ' guess')
+            }
+        }
+        function parseGuess(guess){
         let alphabet = ['A', 'B','C','D','E','F','G'];
         if (guess === null || guess.lenght !== 2){
-            alert("неправильно")
+           console.log("неправильно")
         }else{
             firstChar = guess.charAt(0);
             let row = alphabet.indexOf(firstChar);
@@ -64,12 +73,26 @@ let controller = {
                 alert('нет такого значения')
             }else if(row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize){
                 alert('нета')
+            }else{
+                return row + column;
             }
 
             
         }
+        return null;
     }
-
+   
+}}
+function handlerFireButton(){
+    var guessInput = document.getElementById('guessInput');
+    var guess = guessInput.value;
 }
+function init(){
+    var fireButton = document.getElementById('fireButton');
+    fireButton.onclick = handlerFireButton;
+}
+
+window.onload = init;
+
 
 
